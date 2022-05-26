@@ -23,6 +23,11 @@ RTRUE: 'true';
 RFALSE: 'false';
 CHAR: '\''([A-Za-z]|WS|[0-9])'\'';
 STRING: '"'([A-Za-z]|WS|[0-9])*'"';
+MAS: '+';
+MENOS: '-';
+MUL: '*';
+DIV: '/';
+MOD: '%';
 
 start: {instrucciones := [] Abstract.Instruccion{};TSGlobal:=TS.TablaSimbolos{}}(instruccion{instrucciones = append(instrucciones,$instruccion.nodo)})*{
 for _, n := range instrucciones {
@@ -50,6 +55,18 @@ expresion returns[Abstract.Instruccion  nodo]
 {$nodo = Expresiones.NewPrimitivo(strings.Replace($CHAR.text,"'","",2), TS.CARACTER, $CHAR.line, $CHAR.pos)}
 |STRING
 {$nodo = Expresiones.NewPrimitivo(strings.Replace($STRING.text,"\"","",-1),TS.CADENA, $STRING.line, $STRING.pos)}
+|<assoc=right>MENOS expresion
+{$nodo = Expresiones.NewAritmetica(TS.MENOS, $expresion.nodo, nil, $MENOS.line, $MENOS.pos)}
+|<assoc=left>opi=expresion MUL opd=expresion
+{$nodo = Expresiones.NewAritmetica(TS.POR, $opi.nodo, $opd.nodo, $MUL.line, $MUL.pos)}
+|<assoc=left>opi=expresion DIV opd=expresion
+{$nodo = Expresiones.NewAritmetica(TS.DIV, $opi.nodo, $opd.nodo, $DIV.line, $DIV.pos)}
+|<assoc=left>opi=expresion MOD opd=expresion
+{$nodo = Expresiones.NewAritmetica(TS.MOD, $opi.nodo, $opd.nodo, $MOD.line, $MOD.pos)}
+|<assoc=left>opi=expresion MAS opd=expresion
+{$nodo = Expresiones.NewAritmetica(TS.MAS, $opi.nodo, $opd.nodo, $MAS.line, $MAS.pos)}
+|<assoc=left>opi=expresion MENOS opd=expresion
+{$nodo = Expresiones.NewAritmetica(TS.MENOS, $opi.nodo, $opd.nodo, $MENOS.line, $MENOS.pos)}
 ;
 
 

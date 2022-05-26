@@ -40,6 +40,10 @@ func (this Imprimir) Interpretar(table *TS.TablaSimbolos) interface{} {
 	return 0
 }
 
+func (this Imprimir) GetTipo() TS.TIPO {
+	return TS.INSTRUCCION
+}
+
 func NewImprimir(expresion Abstract.Instruccion, fila int, columna int) Imprimir {
 	return Imprimir{Expresion: expresion, Fila: fila, Columna: columna}
 }

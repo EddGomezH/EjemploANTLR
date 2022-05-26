@@ -5,5 +5,6 @@ import (
 )
 
 type Instruccion interface {
+	GetTipo() TS.TIPO
 	Interpretar(table *TS.TablaSimbolos) interface{}
 }

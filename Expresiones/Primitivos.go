@@ -7,41 +7,45 @@ import (
 )
 
 type Primitivos struct {
-	valor   string
-	tipo    TS.TIPO
-	fila    int
-	columna int
+	Valor   string
+	Tipo    TS.TIPO
+	Fila    int
+	Columna int
 }
 
 func (this Primitivos) Interpretar(table *TS.TablaSimbolos) interface{} {
-	if this.tipo == TS.ENTERO {
-		intvar, err := strconv.Atoi(this.valor)
+	if this.Tipo == TS.ENTERO {
+		intvar, err := strconv.Atoi(this.Valor)
 		if err == nil {
 			return intvar
 		}
 	}
-	if this.tipo == TS.FLOAT {
-		floatvar, err := strconv.ParseFloat(this.valor, 64)
+	if this.Tipo == TS.FLOAT {
+		floatvar, err := strconv.ParseFloat(this.Valor, 64)
 		if err == nil {
 			return floatvar
 		}
 	}
-	if this.tipo == TS.BOOLEAN {
-		boolvar, err := strconv.ParseBool(this.valor)
+	if this.Tipo == TS.BOOLEAN {
+		boolvar, err := strconv.ParseBool(this.Valor)
 		if err == nil {
 			return boolvar
 		}
 	}
-	if this.tipo == TS.CARACTER {
-		return this.valor
+	if this.Tipo == TS.CARACTER {
+		return this.Valor
 	}
-	if this.tipo == TS.CADENA {
-		return this.valor
+	if this.Tipo == TS.CADENA {
+		return this.Valor
 	}
 
-	return TS.Excepcion{"Semantico", "Tipo de Dato Invalido", this.fila, this.columna}
+	return TS.Excepcion{"Semantico", "Tipo de Dato Invalido", this.Fila, this.Columna}
 }
 
-func NewPrimitivo(Valor string, Tipo TS.TIPO, Fila int, Columna int) Primitivos {
-	return Primitivos{valor: Valor, tipo: Tipo, fila: Fila, columna: Columna}
+func (this Primitivos) GetTipo() TS.TIPO {
+	return this.Tipo
+}
+
+func NewPrimitivo(valor string, tipo TS.TIPO, fila int, columna int) Primitivos {
+	return Primitivos{Valor: valor, Tipo: tipo, Fila: fila, Columna: columna}
 }
