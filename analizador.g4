@@ -14,6 +14,7 @@ import "strings"
 
 //Tokens
 RPRINT: 'print';
+RVAR:   'var';
 PUNTOCOMA: ';';
 PARA: '(';
 PARC: ')';
@@ -37,6 +38,8 @@ DISTINTO:'!=';
 OR:'||';
 AND:'&&';
 NOT: '!';
+ID: ([A-Za-z]|'_')([A-Za-z]|[0-9]|'_')*;
+IGUAL: '=';
 
 start: {instrucciones := [] Abstract.Instruccion{};TSGlobal:=TS.TablaSimbolos{}}(instruccion{instrucciones = append(instrucciones,$instruccion.nodo)})*{
 for _, n := range instrucciones {
@@ -48,6 +51,14 @@ for _, n := range instrucciones {
 instruccion returns[Abstract.Instruccion nodo]
 :imprimir
 {$nodo = $imprimir.nodo}
+|declaracion
+{$nodo = $declaracion.nodo}
+;
+
+
+declaracion returns[Abstract.Instruccion  nodo]
+:RVAR ID IGUAL expresion finins
+{$nodo = Instrucciones.NewDeclaracion($ID.text, $expresion.nodo, $RVAR.line, $RVAR.pos)}
 ;
 
 
@@ -94,6 +105,8 @@ expresion returns[Abstract.Instruccion  nodo]
 {$nodo = Expresiones.NewLogica(TS.OR, $opi.nodo, $opd.nodo, $OR.line, $OR.pos)}
 |<assoc=left>opi=expresion AND opd=expresion
 {$nodo = Expresiones.NewLogica(TS.AND, $opi.nodo, $opd.nodo, $AND.line, $AND.pos)}
+|ID
+{$nodo = Expresiones.NewIdentificador($ID.text, $ID.line, $ID.pos)}
 ;
 
 

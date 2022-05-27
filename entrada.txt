@@ -1,3 +1,2 @@
-print("NOT");
-print(!true);
-print(!false);
+var numero = 5;
+print(5);

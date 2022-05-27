@@ -1,3 +1,1 @@
-NOT
-false
-true
+5

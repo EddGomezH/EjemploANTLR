@@ -33,6 +33,12 @@ func (s *BaseanalizadorListener) EnterInstruccion(ctx *InstruccionContext) {}
 // ExitInstruccion is called when production instruccion is exited.
 func (s *BaseanalizadorListener) ExitInstruccion(ctx *InstruccionContext) {}
 
+// EnterDeclaracion is called when production declaracion is entered.
+func (s *BaseanalizadorListener) EnterDeclaracion(ctx *DeclaracionContext) {}
+
+// ExitDeclaracion is called when production declaracion is exited.
+func (s *BaseanalizadorListener) ExitDeclaracion(ctx *DeclaracionContext) {}
+
 // EnterExpresion is called when production expresion is entered.
 func (s *BaseanalizadorListener) EnterExpresion(ctx *ExpresionContext) {}
 
