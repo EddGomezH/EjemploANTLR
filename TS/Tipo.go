@@ -22,3 +22,22 @@ const (
 	MOD    = 7
 	UMENOS = 8
 )
+
+type OperadorRelacional int64
+
+const (
+	MENORQUE   = 1
+	MAYORQUE   = 2
+	MENORIGUAL = 3
+	MAYORIGUAL = 4
+	IGUALIGUAL = 5
+	DIFERENTE  = 6
+)
+
+type OperadorLogico int64
+
+const (
+	NOT = 1
+	AND = 2
+	OR  = 3
+)

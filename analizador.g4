@@ -28,6 +28,15 @@ MENOS: '-';
 MUL: '*';
 DIV: '/';
 MOD: '%';
+MAYOR: '>';
+MENOR: '<';
+MAYORIGUAL:'>=';
+MENORIGUAL:'<=';
+IGUALIGUAL:'==';
+DISTINTO:'!=';
+OR:'||';
+AND:'&&';
+NOT: '!';
 
 start: {instrucciones := [] Abstract.Instruccion{};TSGlobal:=TS.TablaSimbolos{}}(instruccion{instrucciones = append(instrucciones,$instruccion.nodo)})*{
 for _, n := range instrucciones {
@@ -67,6 +76,24 @@ expresion returns[Abstract.Instruccion  nodo]
 {$nodo = Expresiones.NewAritmetica(TS.MAS, $opi.nodo, $opd.nodo, $MAS.line, $MAS.pos)}
 |<assoc=left>opi=expresion MENOS opd=expresion
 {$nodo = Expresiones.NewAritmetica(TS.MENOS, $opi.nodo, $opd.nodo, $MENOS.line, $MENOS.pos)}
+|<assoc=left>opi=expresion DISTINTO opd=expresion
+{$nodo = Expresiones.NewRelacional(TS.DIFERENTE, $opi.nodo, $opd.nodo, $DISTINTO.line, $DISTINTO.pos)}
+|<assoc=left>opi=expresion MAYOR opd=expresion
+{$nodo = Expresiones.NewRelacional(TS.MAYORQUE, $opi.nodo, $opd.nodo, $MAYOR.line, $MAYOR.pos)}
+|<assoc=left>opi=expresion IGUALIGUAL opd=expresion
+{$nodo = Expresiones.NewRelacional(TS.IGUALIGUAL, $opi.nodo, $opd.nodo, $IGUALIGUAL.line, $IGUALIGUAL.pos)}
+|<assoc=left>opi=expresion MENOR opd=expresion
+{$nodo = Expresiones.NewRelacional(TS.MENORQUE, $opi.nodo, $opd.nodo, $MENOR.line, $MENOR.pos)}
+|<assoc=left>opi=expresion MAYORIGUAL opd=expresion
+{$nodo = Expresiones.NewRelacional(TS.MAYORIGUAL, $opi.nodo, $opd.nodo, $MAYORIGUAL.line, $MAYORIGUAL.pos)}
+|<assoc=left>opi=expresion MENORIGUAL opd=expresion
+{$nodo = Expresiones.NewRelacional(TS.MENORIGUAL, $opi.nodo, $opd.nodo, $MENORIGUAL.line, $MENORIGUAL.pos)}
+|<assoc=right>NOT expresion
+{$nodo = Expresiones.NewLogica(TS.NOT, $expresion.nodo, $expresion.nodo, $NOT.line, $NOT.pos)}
+|<assoc=left>opi=expresion OR opd=expresion
+{$nodo = Expresiones.NewLogica(TS.OR, $opi.nodo, $opd.nodo, $OR.line, $OR.pos)}
+|<assoc=left>opi=expresion AND opd=expresion
+{$nodo = Expresiones.NewLogica(TS.AND, $opi.nodo, $opd.nodo, $AND.line, $AND.pos)}
 ;
 
 
