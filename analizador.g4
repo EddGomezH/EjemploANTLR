@@ -7,6 +7,7 @@ import "github.com/emivnajera/Expresiones"
 import "github.com/emivnajera/Instrucciones"
 import "github.com/emivnajera/TS"
 import "strings"
+import "reflect"
 }
 
 @parser::members{
@@ -38,15 +39,23 @@ DISTINTO:'!=';
 OR:'||';
 AND:'&&';
 NOT: '!';
+RFUNC:'func';
 ID: ([A-Za-z]|'_')([A-Za-z]|[0-9]|'_')*;
 IGUAL: '=';
+LLAVEA:'{';
+LLAVEC:'}';
+COMA:',';
 
-start: {instrucciones := [] Abstract.Instruccion{};TSGlobal:=TS.TablaSimbolos{}}(instruccion{instrucciones = append(instrucciones,$instruccion.nodo)})*{
+start: {instrucciones := [] Abstract.Instruccion{};TSGlobal:=TS.TablaSimbolos{}; var Funciones []interface{};}(instruccion{instrucciones = append(instrucciones,$instruccion.nodo)})*{
 for _, n := range instrucciones {
-        n.Interpretar(&TSGlobal)
+   if(reflect.TypeOf(n).Name() == "Funcion"){
+        fmt.Println("Creacion de Funcion")
+        Funciones = append(Funciones, n.(Instrucciones.Funcion))
+    }else{
+        n.Interpretar(&TSGlobal, &Funciones)
+}
 }
 };
-
 
 instruccion returns[Abstract.Instruccion nodo]
 :imprimir
@@ -55,6 +64,8 @@ instruccion returns[Abstract.Instruccion nodo]
 {$nodo = $declaracion.nodo}
 |asignacion
 {$nodo = $asignacion.nodo}
+|funcion
+{$nodo = $funcion.nodo}
 ;
 
 
@@ -68,6 +79,20 @@ asignacion returns[Abstract.Instruccion nodo]
 {$nodo = Instrucciones.NewAsignacion($ID.text, $expresion.nodo, $ID.line, $ID.pos)}
 ;
 
+parametro returns[string id]
+:ID {$id= $ID.text}
+;
+
+parametros returns[[]string lista]:
+parametro{$lista = append($lista, $parametro.id)} (COMA parametro{$lista = append($lista, $parametro.id)})*
+;
+
+funcion returns[Abstract.Instruccion nodo]
+:RFUNC {instrucciones := [] Abstract.Instruccion{}; parametros := []string{}} ID PARA PARC LLAVEA (instruccion {instrucciones = append(instrucciones,$instruccion.nodo)})* LLAVEC
+{$nodo = Instrucciones.NewFuncion($ID.text,instrucciones, parametros, $RFUNC.line, $RFUNC.pos)}
+|RFUNC {instrucciones := [] Abstract.Instruccion{};} ID PARA parametros PARC LLAVEA (instruccion {instrucciones = append(instrucciones,$instruccion.nodo)})* LLAVEC
+{$nodo = Instrucciones.NewFuncion($ID.text,instrucciones, $parametros.lista, $RFUNC.line, $RFUNC.pos)}
+;
 
 expresion returns[Abstract.Instruccion  nodo]
 :ENTERO

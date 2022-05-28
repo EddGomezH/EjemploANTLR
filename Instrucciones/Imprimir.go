@@ -16,13 +16,13 @@ type Imprimir struct {
 	Columna   int
 }
 
-func (this Imprimir) Interpretar(table *TS.TablaSimbolos) interface{} {
+func (this Imprimir) Interpretar(table *TS.TablaSimbolos, Funciones *[]interface{}) interface{} {
 	bytesLeidos, err := ioutil.ReadFile("consola.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	value := this.Expresion.Interpretar(table)
+	value := this.Expresion.Interpretar(table, Funciones)
 	if reflect.TypeOf(value).Name() == "Excepcion" {
 		return value
 	}

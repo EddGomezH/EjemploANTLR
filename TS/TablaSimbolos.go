@@ -48,6 +48,6 @@ func (this *TablaSimbolos) ActualizarTabla(id string, value interface{}, fila in
 	return Excepcion{"Semantico", "Variable No Existe", fila, columna}
 }
 
-func NewTabla(Anterior TablaSimbolos) TablaSimbolos {
-	return TablaSimbolos{anterior: &Anterior}
+func NewTabla(Anterior *TablaSimbolos) TablaSimbolos {
+	return TablaSimbolos{anterior: Anterior}
 }

@@ -18,14 +18,14 @@ type Aritmetica struct {
 	Tipo     TS.TIPO
 }
 
-func (this Aritmetica) Interpretar(tabla *TS.TablaSimbolos) interface{} {
-	izq := this.Op_izq.Interpretar(tabla)
+func (this Aritmetica) Interpretar(tabla *TS.TablaSimbolos, Funciones *[]interface{}) interface{} {
+	izq := this.Op_izq.Interpretar(tabla, Funciones)
 	if reflect.TypeOf(izq).Name() == "Excepcion" {
 		return izq
 	}
 
 	if this.Op_der != nil {
-		der := this.Op_der.(Abstract.Instruccion).Interpretar(tabla)
+		der := this.Op_der.(Abstract.Instruccion).Interpretar(tabla, Funciones)
 		if reflect.TypeOf(der).Name() == "Excepcion" {
 			return der
 		}

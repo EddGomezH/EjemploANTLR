@@ -11,7 +11,7 @@ type Identificador struct {
 	Tipo          TS.TIPO
 }
 
-func (this Identificador) Interpretar(tabla *TS.TablaSimbolos) interface{} {
+func (this Identificador) Interpretar(tabla *TS.TablaSimbolos, Funciones *[]interface{}) interface{} {
 	simbolo := tabla.GetTabla(this.Identificador)
 
 	if simbolo == nil {

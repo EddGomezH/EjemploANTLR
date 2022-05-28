@@ -1,7 +1,7 @@
-var numero1 = 5;
+func hola(){
+    print("hola");
+}
 
-print(numero1);
-
-numero2 = 7;
-
-print(numero1);
+func suma(num1,num2){
+    print("suma");
+}

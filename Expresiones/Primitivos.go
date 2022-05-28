@@ -13,7 +13,7 @@ type Primitivos struct {
 	Columna int
 }
 
-func (this Primitivos) Interpretar(table *TS.TablaSimbolos) interface{} {
+func (this Primitivos) Interpretar(table *TS.TablaSimbolos, Funciones *[]interface{}) interface{} {
 	if this.Tipo == TS.ENTERO {
 		intvar, err := strconv.Atoi(this.Valor)
 		if err == nil {

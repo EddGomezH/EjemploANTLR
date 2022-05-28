@@ -14,8 +14,8 @@ type Declaracion struct {
 	Columna       int
 }
 
-func (this Declaracion) Interpretar(table *TS.TablaSimbolos) interface{} {
-	value := this.Expresion.Interpretar(table)
+func (this Declaracion) Interpretar(table *TS.TablaSimbolos, Funciones *[]interface{}) interface{} {
+	value := this.Expresion.Interpretar(table, Funciones)
 	tipo := this.Expresion.GetTipo()
 
 	if reflect.TypeOf(value).Name() == "Excepcion" {

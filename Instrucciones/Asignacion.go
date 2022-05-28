@@ -16,8 +16,8 @@ type Asignacion struct {
 	tipo          TS.TIPO
 }
 
-func (this Asignacion) Interpretar(table *TS.TablaSimbolos) interface{} {
-	value := this.Expresion.Interpretar(table)
+func (this Asignacion) Interpretar(table *TS.TablaSimbolos, Funciones *[]interface{}) interface{} {
+	value := this.Expresion.Interpretar(table, Funciones)
 	if reflect.TypeOf(value).Name() == "Excepcion" {
 		return value
 	}

@@ -45,6 +45,24 @@ func (s *BaseanalizadorListener) EnterAsignacion(ctx *AsignacionContext) {}
 // ExitAsignacion is called when production asignacion is exited.
 func (s *BaseanalizadorListener) ExitAsignacion(ctx *AsignacionContext) {}
 
+// EnterParametro is called when production parametro is entered.
+func (s *BaseanalizadorListener) EnterParametro(ctx *ParametroContext) {}
+
+// ExitParametro is called when production parametro is exited.
+func (s *BaseanalizadorListener) ExitParametro(ctx *ParametroContext) {}
+
+// EnterParametros is called when production parametros is entered.
+func (s *BaseanalizadorListener) EnterParametros(ctx *ParametrosContext) {}
+
+// ExitParametros is called when production parametros is exited.
+func (s *BaseanalizadorListener) ExitParametros(ctx *ParametrosContext) {}
+
+// EnterFuncion is called when production funcion is entered.
+func (s *BaseanalizadorListener) EnterFuncion(ctx *FuncionContext) {}
+
+// ExitFuncion is called when production funcion is exited.
+func (s *BaseanalizadorListener) ExitFuncion(ctx *FuncionContext) {}
+
 // EnterExpresion is called when production expresion is entered.
 func (s *BaseanalizadorListener) EnterExpresion(ctx *ExpresionContext) {}
 

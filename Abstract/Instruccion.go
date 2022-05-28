@@ -6,5 +6,5 @@ import (
 
 type Instruccion interface {
 	GetTipo() TS.TIPO
-	Interpretar(table *TS.TablaSimbolos) interface{}
+	Interpretar(table *TS.TablaSimbolos, Funciones *[]interface{}) interface{}
 }

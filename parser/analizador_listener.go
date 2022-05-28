@@ -20,6 +20,15 @@ type analizadorListener interface {
 	// EnterAsignacion is called when entering the asignacion production.
 	EnterAsignacion(c *AsignacionContext)
 
+	// EnterParametro is called when entering the parametro production.
+	EnterParametro(c *ParametroContext)
+
+	// EnterParametros is called when entering the parametros production.
+	EnterParametros(c *ParametrosContext)
+
+	// EnterFuncion is called when entering the funcion production.
+	EnterFuncion(c *FuncionContext)
+
 	// EnterExpresion is called when entering the expresion production.
 	EnterExpresion(c *ExpresionContext)
 
@@ -40,6 +49,15 @@ type analizadorListener interface {
 
 	// ExitAsignacion is called when exiting the asignacion production.
 	ExitAsignacion(c *AsignacionContext)
+
+	// ExitParametro is called when exiting the parametro production.
+	ExitParametro(c *ParametroContext)
+
+	// ExitParametros is called when exiting the parametros production.
+	ExitParametros(c *ParametrosContext)
+
+	// ExitFuncion is called when exiting the funcion production.
+	ExitFuncion(c *FuncionContext)
 
 	// ExitExpresion is called when exiting the expresion production.
 	ExitExpresion(c *ExpresionContext)
