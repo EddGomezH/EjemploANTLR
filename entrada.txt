@@ -1,2 +1,7 @@
-var numero = 5;
-print(5);
+var numero1 = 5;
+
+print(numero1);
+
+numero2 = 7;
+
+print(numero1);

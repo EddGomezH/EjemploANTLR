@@ -53,12 +53,19 @@ instruccion returns[Abstract.Instruccion nodo]
 {$nodo = $imprimir.nodo}
 |declaracion
 {$nodo = $declaracion.nodo}
+|asignacion
+{$nodo = $asignacion.nodo}
 ;
 
 
 declaracion returns[Abstract.Instruccion  nodo]
 :RVAR ID IGUAL expresion finins
 {$nodo = Instrucciones.NewDeclaracion($ID.text, $expresion.nodo, $RVAR.line, $RVAR.pos)}
+;
+
+asignacion returns[Abstract.Instruccion nodo]
+:ID IGUAL expresion finins
+{$nodo = Instrucciones.NewAsignacion($ID.text, $expresion.nodo, $ID.line, $ID.pos)}
 ;
 
 

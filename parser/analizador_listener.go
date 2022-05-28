@@ -17,6 +17,9 @@ type analizadorListener interface {
 	// EnterDeclaracion is called when entering the declaracion production.
 	EnterDeclaracion(c *DeclaracionContext)
 
+	// EnterAsignacion is called when entering the asignacion production.
+	EnterAsignacion(c *AsignacionContext)
+
 	// EnterExpresion is called when entering the expresion production.
 	EnterExpresion(c *ExpresionContext)
 
@@ -34,6 +37,9 @@ type analizadorListener interface {
 
 	// ExitDeclaracion is called when exiting the declaracion production.
 	ExitDeclaracion(c *DeclaracionContext)
+
+	// ExitAsignacion is called when exiting the asignacion production.
+	ExitAsignacion(c *AsignacionContext)
 
 	// ExitExpresion is called when exiting the expresion production.
 	ExitExpresion(c *ExpresionContext)

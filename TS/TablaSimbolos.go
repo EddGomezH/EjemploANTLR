@@ -15,29 +15,37 @@ func (this *TablaSimbolos) SetTabla(sim Simbolo) interface{} {
 	return 0
 }
 
-func (this TablaSimbolos) GetTabla(id string) interface{} {
-	for _, n := range this.Tabla {
-		if id == n.Id {
-			return n
+func (this *TablaSimbolos) GetTabla(id string) interface{} {
+	tablaActual := this
+	encontrado := false
+	for tablaActual != nil {
+		for _, n := range this.Tabla {
+			if id == n.Id {
+				encontrado = true
+				return n
+			}
+		}
+		if !encontrado {
+			tablaActual = tablaActual.anterior
 		}
 	}
-	this = *this.anterior
 	return nil
 }
 
-func (this *TablaSimbolos) ActualizarTabla(id string, value interface{}) interface{} {
+func (this *TablaSimbolos) ActualizarTabla(id string, value interface{}, fila int, columna int) interface{} {
 	contador := 0
-	for this.Tabla != nil {
-		for _, n := range this.Tabla {
+	tablaActual := this
+	for tablaActual != nil {
+		for _, n := range tablaActual.Tabla {
 			if id == n.Id {
 				this.Tabla[contador].Valor = value
-				return nil
+				return n
 			}
 			contador++
 		}
-		this = this.anterior
+		tablaActual = this.anterior
 	}
-	return nil
+	return Excepcion{"Semantico", "Variable No Existe", fila, columna}
 }
 
 func NewTabla(Anterior TablaSimbolos) TablaSimbolos {

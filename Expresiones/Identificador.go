@@ -1,8 +1,6 @@
 package Expresiones
 
 import (
-	"fmt"
-
 	"github.com/emivnajera/TS"
 )
 
@@ -21,8 +19,6 @@ func (this Identificador) Interpretar(tabla *TS.TablaSimbolos) interface{} {
 	}
 
 	this.Tipo = simbolo.(TS.Simbolo).GetTipo()
-
-	fmt.Println("Valor: ", simbolo.(TS.Simbolo).Valor)
 
 	return simbolo.(TS.Simbolo).Valor
 }

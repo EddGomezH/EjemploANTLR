@@ -39,6 +39,12 @@ func (s *BaseanalizadorListener) EnterDeclaracion(ctx *DeclaracionContext) {}
 // ExitDeclaracion is called when production declaracion is exited.
 func (s *BaseanalizadorListener) ExitDeclaracion(ctx *DeclaracionContext) {}
 
+// EnterAsignacion is called when production asignacion is entered.
+func (s *BaseanalizadorListener) EnterAsignacion(ctx *AsignacionContext) {}
+
+// ExitAsignacion is called when production asignacion is exited.
+func (s *BaseanalizadorListener) ExitAsignacion(ctx *AsignacionContext) {}
+
 // EnterExpresion is called when production expresion is entered.
 func (s *BaseanalizadorListener) EnterExpresion(ctx *ExpresionContext) {}
 
