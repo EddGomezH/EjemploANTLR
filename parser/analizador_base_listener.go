@@ -63,6 +63,24 @@ func (s *BaseanalizadorListener) EnterFuncion(ctx *FuncionContext) {}
 // ExitFuncion is called when production funcion is exited.
 func (s *BaseanalizadorListener) ExitFuncion(ctx *FuncionContext) {}
 
+// EnterParametroll is called when production parametroll is entered.
+func (s *BaseanalizadorListener) EnterParametroll(ctx *ParametrollContext) {}
+
+// ExitParametroll is called when production parametroll is exited.
+func (s *BaseanalizadorListener) ExitParametroll(ctx *ParametrollContext) {}
+
+// EnterParametrolls is called when production parametrolls is entered.
+func (s *BaseanalizadorListener) EnterParametrolls(ctx *ParametrollsContext) {}
+
+// ExitParametrolls is called when production parametrolls is exited.
+func (s *BaseanalizadorListener) ExitParametrolls(ctx *ParametrollsContext) {}
+
+// EnterLlamada is called when production llamada is entered.
+func (s *BaseanalizadorListener) EnterLlamada(ctx *LlamadaContext) {}
+
+// ExitLlamada is called when production llamada is exited.
+func (s *BaseanalizadorListener) ExitLlamada(ctx *LlamadaContext) {}
+
 // EnterExpresion is called when production expresion is entered.
 func (s *BaseanalizadorListener) EnterExpresion(ctx *ExpresionContext) {}
 

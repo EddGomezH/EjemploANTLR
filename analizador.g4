@@ -49,7 +49,6 @@ COMA:',';
 start: {instrucciones := [] Abstract.Instruccion{};TSGlobal:=TS.TablaSimbolos{}; var Funciones []interface{};}(instruccion{instrucciones = append(instrucciones,$instruccion.nodo)})*{
 for _, n := range instrucciones {
    if(reflect.TypeOf(n).Name() == "Funcion"){
-        fmt.Println("Creacion de Funcion")
         Funciones = append(Funciones, n.(Instrucciones.Funcion))
     }else{
         n.Interpretar(&TSGlobal, &Funciones)
@@ -66,6 +65,8 @@ instruccion returns[Abstract.Instruccion nodo]
 {$nodo = $asignacion.nodo}
 |funcion
 {$nodo = $funcion.nodo}
+|llamada
+{$nodo = $llamada.nodo}
 ;
 
 
@@ -92,6 +93,21 @@ funcion returns[Abstract.Instruccion nodo]
 {$nodo = Instrucciones.NewFuncion($ID.text,instrucciones, parametros, $RFUNC.line, $RFUNC.pos)}
 |RFUNC {instrucciones := [] Abstract.Instruccion{};} ID PARA parametros PARC LLAVEA (instruccion {instrucciones = append(instrucciones,$instruccion.nodo)})* LLAVEC
 {$nodo = Instrucciones.NewFuncion($ID.text,instrucciones, $parametros.lista, $RFUNC.line, $RFUNC.pos)}
+;
+
+parametroll returns[Abstract.Instruccion  nodo]
+:expresion {$nodo = $expresion.nodo}
+;
+
+parametrolls returns[[]Abstract.Instruccion  lista]
+:parametroll{$lista = append($lista, $parametroll.nodo)} (COMA parametroll{$lista = append($lista, $parametroll.nodo)})*
+;
+
+llamada returns[Abstract.Instruccion  nodo]
+: ID {parametros := []Abstract.Instruccion{}}PARA PARC finins
+{$nodo = Instrucciones.NewLlamada($ID.text, parametros, $ID.line, $ID.pos)}
+| ID PARA parametrolls PARC finins
+{$nodo = Instrucciones.NewLlamada($ID.text, $parametrolls.lista, $ID.line, $ID.pos)}
 ;
 
 expresion returns[Abstract.Instruccion  nodo]

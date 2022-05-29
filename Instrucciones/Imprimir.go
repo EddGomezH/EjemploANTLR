@@ -24,6 +24,7 @@ func (this Imprimir) Interpretar(table *TS.TablaSimbolos, Funciones *[]interface
 
 	value := this.Expresion.Interpretar(table, Funciones)
 	if reflect.TypeOf(value).Name() == "Excepcion" {
+		fmt.Println(value)
 		return value
 	}
 

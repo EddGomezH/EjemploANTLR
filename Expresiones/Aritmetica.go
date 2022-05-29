@@ -19,6 +19,8 @@ type Aritmetica struct {
 }
 
 func (this Aritmetica) Interpretar(tabla *TS.TablaSimbolos, Funciones *[]interface{}) interface{} {
+
+	fmt.Println(this.Op_izq)
 	izq := this.Op_izq.Interpretar(tabla, Funciones)
 	if reflect.TypeOf(izq).Name() == "Excepcion" {
 		return izq

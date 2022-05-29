@@ -29,6 +29,15 @@ type analizadorListener interface {
 	// EnterFuncion is called when entering the funcion production.
 	EnterFuncion(c *FuncionContext)
 
+	// EnterParametroll is called when entering the parametroll production.
+	EnterParametroll(c *ParametrollContext)
+
+	// EnterParametrolls is called when entering the parametrolls production.
+	EnterParametrolls(c *ParametrollsContext)
+
+	// EnterLlamada is called when entering the llamada production.
+	EnterLlamada(c *LlamadaContext)
+
 	// EnterExpresion is called when entering the expresion production.
 	EnterExpresion(c *ExpresionContext)
 
@@ -58,6 +67,15 @@ type analizadorListener interface {
 
 	// ExitFuncion is called when exiting the funcion production.
 	ExitFuncion(c *FuncionContext)
+
+	// ExitParametroll is called when exiting the parametroll production.
+	ExitParametroll(c *ParametrollContext)
+
+	// ExitParametrolls is called when exiting the parametrolls production.
+	ExitParametrolls(c *ParametrollsContext)
+
+	// ExitLlamada is called when exiting the llamada production.
+	ExitLlamada(c *LlamadaContext)
 
 	// ExitExpresion is called when exiting the expresion production.
 	ExitExpresion(c *ExpresionContext)

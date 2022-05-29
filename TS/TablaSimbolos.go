@@ -2,7 +2,7 @@ package TS
 
 type TablaSimbolos struct {
 	Tabla    []Simbolo
-	anterior *TablaSimbolos
+	Anterior *TablaSimbolos
 }
 
 func (this *TablaSimbolos) SetTabla(sim Simbolo) interface{} {
@@ -19,14 +19,14 @@ func (this *TablaSimbolos) GetTabla(id string) interface{} {
 	tablaActual := this
 	encontrado := false
 	for tablaActual != nil {
-		for _, n := range this.Tabla {
+		for _, n := range tablaActual.Tabla {
 			if id == n.Id {
 				encontrado = true
 				return n
 			}
 		}
 		if !encontrado {
-			tablaActual = tablaActual.anterior
+			tablaActual = tablaActual.Anterior
 		}
 	}
 	return nil
@@ -43,11 +43,11 @@ func (this *TablaSimbolos) ActualizarTabla(id string, value interface{}, fila in
 			}
 			contador++
 		}
-		tablaActual = this.anterior
+		tablaActual = this.Anterior
 	}
 	return Excepcion{"Semantico", "Variable No Existe", fila, columna}
 }
 
-func NewTabla(Anterior *TablaSimbolos) TablaSimbolos {
-	return TablaSimbolos{anterior: Anterior}
+func NewTabla(anterior *TablaSimbolos) TablaSimbolos {
+	return TablaSimbolos{Anterior: anterior}
 }

@@ -1,6 +1,8 @@
 package Expresiones
 
 import (
+	"fmt"
+
 	"github.com/emivnajera/TS"
 )
 
@@ -13,12 +15,10 @@ type Identificador struct {
 
 func (this Identificador) Interpretar(tabla *TS.TablaSimbolos, Funciones *[]interface{}) interface{} {
 	simbolo := tabla.GetTabla(this.Identificador)
-
 	if simbolo == nil {
+		fmt.Println(TS.Excepcion{"Semantico", "Variable No Existe", this.Fila, this.Columna})
 		return TS.Excepcion{"Semantico", "Variable No Existe", this.Fila, this.Columna}
 	}
-
-	this.Tipo = simbolo.(TS.Simbolo).GetTipo()
 
 	return simbolo.(TS.Simbolo).Valor
 }

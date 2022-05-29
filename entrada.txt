@@ -1,7 +1,0 @@
-func hola(){
-    print("hola");
-}
-
-func suma(num1,num2){
-    print("suma");
-}
