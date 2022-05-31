@@ -45,6 +45,10 @@ func (this Imprimir) GetTipo() TS.TIPO {
 	return TS.INSTRUCCION
 }
 
+func (this Imprimir) SetTipo(tipo TS.TIPO) {
+	fmt.Println("No se debe usar")
+}
+
 func NewImprimir(expresion Abstract.Instruccion, fila int, columna int) Imprimir {
 	return Imprimir{Expresion: expresion, Fila: fila, Columna: columna}
 }

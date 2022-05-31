@@ -27,6 +27,10 @@ func (this Identificador) GetTipo() TS.TIPO {
 	return this.Tipo
 }
 
+func (this Identificador) SetTipo(tipo TS.TIPO) {
+	this.Tipo = tipo
+}
+
 func NewIdentificador(identificador string, fila int, columna int) Identificador {
 	return Identificador{Identificador: identificador, Fila: fila, Columna: columna}
 }

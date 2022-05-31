@@ -30,136 +30,136 @@ func (this Relacional) Interpretar(tabla *TS.TablaSimbolos, Funciones *[]interfa
 
 		//MENORQUE
 		if this.Operador == TS.MENORQUE {
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(int) < obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int)
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.ENTERO) {
+				return obtenerVal(obtenerTipo(izq), izq).(int) < obtenerVal(obtenerTipo(der), der).(int)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
-				return float64(obtenerVal(this.Op_izq.GetTipo(), izq).(int)) < obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.FLOAT) {
+				return float64(obtenerVal(obtenerTipo(izq), izq).(int)) < obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) < float64(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int))
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.ENTERO) {
+				return obtenerVal(obtenerTipo(izq), izq).(float64) < float64(obtenerVal(obtenerTipo(der), der).(int))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) < obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.FLOAT) {
+				return obtenerVal(obtenerTipo(izq), izq).(float64) < obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.BOOLEAN) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.BOOLEAN) {
-				return boolToInt(obtenerVal(this.Op_izq.GetTipo(), izq).(bool)) < boolToInt(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(bool))
+			if (obtenerTipo(izq) == TS.BOOLEAN) && (obtenerTipo(der) == TS.BOOLEAN) {
+				return boolToInt(obtenerVal(obtenerTipo(izq), izq).(bool)) < boolToInt(obtenerVal(obtenerTipo(der), der).(bool))
 			}
 			return TS.Excepcion{"Semantico", "Tipo Erroneo para Operacion Menor Que", this.Fila, this.Columna}
 		}
 
 		//MAYORQUE
 		if this.Operador == TS.MAYORQUE {
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(int) > obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int)
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.ENTERO) {
+				return obtenerVal(obtenerTipo(izq), izq).(int) > obtenerVal(obtenerTipo(der), der).(int)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
-				return float64(obtenerVal(this.Op_izq.GetTipo(), izq).(int)) > obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.FLOAT) {
+				return float64(obtenerVal(obtenerTipo(izq), izq).(int)) > obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) > float64(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int))
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.ENTERO) {
+				return obtenerVal(obtenerTipo(izq), izq).(float64) > float64(obtenerVal(obtenerTipo(der), der).(int))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) > obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.FLOAT) {
+				return obtenerVal(obtenerTipo(izq), izq).(float64) > obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.BOOLEAN) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.BOOLEAN) {
-				return boolToInt(obtenerVal(this.Op_izq.GetTipo(), izq).(bool)) > boolToInt(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(bool))
+			if (obtenerTipo(izq) == TS.BOOLEAN) && (obtenerTipo(der) == TS.BOOLEAN) {
+				return boolToInt(obtenerVal(obtenerTipo(izq), izq).(bool)) > boolToInt(obtenerVal(obtenerTipo(der), der).(bool))
 			}
 			return TS.Excepcion{"Semantico", "Tipo Erroneo para Operacion Mayor Que", this.Fila, this.Columna}
 		}
 
 		//MAYORQUE
 		if this.Operador == TS.MAYORIGUAL {
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(int) >= obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int)
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.ENTERO) {
+				return obtenerVal(obtenerTipo(izq), izq).(int) >= obtenerVal(obtenerTipo(der), der).(int)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
-				return float64(obtenerVal(this.Op_izq.GetTipo(), izq).(int)) >= obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.FLOAT) {
+				return float64(obtenerVal(obtenerTipo(izq), izq).(int)) >= obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) >= float64(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int))
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.ENTERO) {
+				return obtenerVal(obtenerTipo(izq), izq).(float64) >= float64(obtenerVal(obtenerTipo(der), der).(int))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) >= obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.FLOAT) {
+				return obtenerVal(obtenerTipo(izq), izq).(float64) >= obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.BOOLEAN) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.BOOLEAN) {
-				return boolToInt(obtenerVal(this.Op_izq.GetTipo(), izq).(bool)) >= boolToInt(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(bool))
+			if (obtenerTipo(izq) == TS.BOOLEAN) && (obtenerTipo(der) == TS.BOOLEAN) {
+				return boolToInt(obtenerVal(obtenerTipo(izq), izq).(bool)) >= boolToInt(obtenerVal(obtenerTipo(der), der).(bool))
 			}
 			return TS.Excepcion{"Semantico", "Tipo Erroneo para Operacion Mayor Igual Que", this.Fila, this.Columna}
 		}
 
 		//MENORIGUAL
 		if this.Operador == TS.MENORIGUAL {
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(int) <= obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int)
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.ENTERO) {
+				return obtenerVal(obtenerTipo(izq), izq).(int) <= obtenerVal(obtenerTipo(der), der).(int)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
-				return float64(obtenerVal(this.Op_izq.GetTipo(), izq).(int)) <= obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.FLOAT) {
+				return float64(obtenerVal(obtenerTipo(izq), izq).(int)) <= obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) <= float64(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int))
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.ENTERO) {
+				return obtenerVal(obtenerTipo(izq), izq).(float64) <= float64(obtenerVal(obtenerTipo(der), der).(int))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) <= obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.FLOAT) {
+				return obtenerVal(obtenerTipo(izq), izq).(float64) <= obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.BOOLEAN) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.BOOLEAN) {
-				return boolToInt(obtenerVal(this.Op_izq.GetTipo(), izq).(bool)) <= boolToInt(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(bool))
+			if (obtenerTipo(izq) == TS.BOOLEAN) && (obtenerTipo(der) == TS.BOOLEAN) {
+				return boolToInt(obtenerVal(obtenerTipo(izq), izq).(bool)) <= boolToInt(obtenerVal(obtenerTipo(der), der).(bool))
 			}
 			return TS.Excepcion{"Semantico", "Tipo Erroneo para Operacion Menor Igual Que", this.Fila, this.Columna}
 		}
 
 		//DIFERENTE
 		if this.Operador == TS.DIFERENTE {
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(int) != obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int)
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.ENTERO) {
+				return obtenerVal(obtenerTipo(izq), izq).(int) != obtenerVal(obtenerTipo(der), der).(int)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
-				return float64(obtenerVal(this.Op_izq.GetTipo(), izq).(int)) != obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.FLOAT) {
+				return float64(obtenerVal(obtenerTipo(izq), izq).(int)) != obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) != float64(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int))
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.ENTERO) {
+				return obtenerVal(obtenerTipo(izq), izq).(float64) != float64(obtenerVal(obtenerTipo(der), der).(int))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) != obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.FLOAT) {
+				return obtenerVal(obtenerTipo(izq), izq).(float64) != obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.BOOLEAN) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.BOOLEAN) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(bool) != obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(bool)
+			if (obtenerTipo(izq) == TS.BOOLEAN) && (obtenerTipo(der) == TS.BOOLEAN) {
+				return obtenerVal(obtenerTipo(izq), izq).(bool) != obtenerVal(obtenerTipo(der), der).(bool)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.CADENA) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.CADENA) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(string) != obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(string)
+			if (obtenerTipo(izq) == TS.CADENA) && (obtenerTipo(der) == TS.CADENA) {
+				return obtenerVal(obtenerTipo(izq), izq).(string) != obtenerVal(obtenerTipo(der), der).(string)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.CADENA) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.CARACTER) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(string) != obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(string)
+			if (obtenerTipo(izq) == TS.CADENA) && (obtenerTipo(der) == TS.CARACTER) {
+				return obtenerVal(obtenerTipo(izq), izq).(string) != obtenerVal(obtenerTipo(der), der).(string)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.CARACTER) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.CARACTER) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(string) != obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(string)
+			if (obtenerTipo(izq) == TS.CARACTER) && (obtenerTipo(der) == TS.CARACTER) {
+				return obtenerVal(obtenerTipo(izq), izq).(string) != obtenerVal(obtenerTipo(der), der).(string)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.CARACTER) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.CADENA) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(string) != obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(string)
+			if (obtenerTipo(izq) == TS.CARACTER) && (obtenerTipo(der) == TS.CADENA) {
+				return obtenerVal(obtenerTipo(izq), izq).(string) != obtenerVal(obtenerTipo(der), der).(string)
 			}
 
 			return TS.Excepcion{"Semantico", "Tipo Erroneo para Operacion Diferente Que", this.Fila, this.Columna}
@@ -167,40 +167,40 @@ func (this Relacional) Interpretar(tabla *TS.TablaSimbolos, Funciones *[]interfa
 
 		//IGUAL
 		if this.Operador == TS.IGUALIGUAL {
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(int) == obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int)
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.ENTERO) {
+				return obtenerVal(obtenerTipo(izq), izq).(int) == obtenerVal(obtenerTipo(der), der).(int)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
-				return float64(obtenerVal(this.Op_izq.GetTipo(), izq).(int)) == obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.FLOAT) {
+				return float64(obtenerVal(obtenerTipo(izq), izq).(int)) == obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) == float64(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int))
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.ENTERO) {
+				return obtenerVal(obtenerTipo(izq), izq).(float64) == float64(obtenerVal(obtenerTipo(der), der).(int))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) == obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.FLOAT) {
+				return obtenerVal(obtenerTipo(izq), izq).(float64) == obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.BOOLEAN) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.BOOLEAN) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(bool) == obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(bool)
+			if (obtenerTipo(izq) == TS.BOOLEAN) && (obtenerTipo(der) == TS.BOOLEAN) {
+				return obtenerVal(obtenerTipo(izq), izq).(bool) == obtenerVal(obtenerTipo(der), der).(bool)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.CADENA) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.CADENA) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(string) == obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(string)
+			if (obtenerTipo(izq) == TS.CADENA) && (obtenerTipo(der) == TS.CADENA) {
+				return obtenerVal(obtenerTipo(izq), izq).(string) == obtenerVal(obtenerTipo(der), der).(string)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.CADENA) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.CARACTER) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(string) == obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(string)
+			if (obtenerTipo(izq) == TS.CADENA) && (obtenerTipo(der) == TS.CARACTER) {
+				return obtenerVal(obtenerTipo(izq), izq).(string) == obtenerVal(obtenerTipo(der), der).(string)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.CARACTER) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.CARACTER) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(string) == obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(string)
+			if (obtenerTipo(izq) == TS.CARACTER) && (obtenerTipo(der) == TS.CARACTER) {
+				return obtenerVal(obtenerTipo(izq), izq).(string) == obtenerVal(obtenerTipo(der), der).(string)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.CARACTER) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.CADENA) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(string) == obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(string)
+			if (obtenerTipo(izq) == TS.CARACTER) && (obtenerTipo(der) == TS.CADENA) {
+				return obtenerVal(obtenerTipo(izq), izq).(string) == obtenerVal(obtenerTipo(der), der).(string)
 			}
 
 			return TS.Excepcion{"Semantico", "Tipo Erroneo para Operacion Diferente Que", this.Fila, this.Columna}
@@ -215,6 +215,10 @@ func (this Relacional) Interpretar(tabla *TS.TablaSimbolos, Funciones *[]interfa
 
 func (this Relacional) GetTipo() TS.TIPO {
 	return this.Tipo
+}
+
+func (this Relacional) SetTipo(tipo TS.TIPO) {
+	this.Tipo = tipo
 }
 
 func NewRelacional(operador TS.OperadorAritmetico, op_izq Abstract.Instruccion, op_der interface{}, fila int, columna int) Relacional {

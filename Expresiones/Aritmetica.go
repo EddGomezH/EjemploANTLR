@@ -19,182 +19,183 @@ type Aritmetica struct {
 }
 
 func (this Aritmetica) Interpretar(tabla *TS.TablaSimbolos, Funciones *[]interface{}) interface{} {
-
-	fmt.Println(this.Op_izq)
 	izq := this.Op_izq.Interpretar(tabla, Funciones)
 	if reflect.TypeOf(izq).Name() == "Excepcion" {
 		return izq
 	}
 
+	this.Op_izq.SetTipo(obtenerTipo(izq))
+
 	if this.Op_der != nil {
 		der := this.Op_der.(Abstract.Instruccion).Interpretar(tabla, Funciones)
+		this.Op_der.(Abstract.Instruccion).SetTipo(obtenerTipo(der))
 		if reflect.TypeOf(der).Name() == "Excepcion" {
 			return der
 		}
 
 		//SUMA
 		if this.Operador == TS.MAS {
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.ENTERO) {
 				this.Tipo = TS.ENTERO
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(int) + obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int)
+				return obtenerVal(obtenerTipo(izq), izq).(int) + obtenerVal(obtenerTipo(der), der).(int)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.FLOAT) {
 				this.Tipo = TS.FLOAT
-				return float64(obtenerVal(this.Op_izq.GetTipo(), izq).(int)) + obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+				return float64(obtenerVal(obtenerTipo(izq), izq).(int)) + obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.BOOLEAN) {
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.BOOLEAN) {
 				this.Tipo = TS.ENTERO
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(int) + boolToInt(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(bool))
+				return obtenerVal(obtenerTipo(izq), izq).(int) + boolToInt(obtenerVal(obtenerTipo(der), der).(bool))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.CADENA) {
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.CADENA) {
 				this.Tipo = TS.CADENA
-				return fmt.Sprintf("%d", obtenerVal(this.Op_izq.GetTipo(), izq).(int)) + obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(string)
+				return fmt.Sprintf("%d", obtenerVal(obtenerTipo(izq), izq).(int)) + obtenerVal(obtenerTipo(der), der).(string)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.ENTERO) {
 				this.Tipo = TS.FLOAT
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) + float64(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int))
+				return obtenerVal(obtenerTipo(izq), izq).(float64) + float64(obtenerVal(obtenerTipo(der), der).(int))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.FLOAT) {
 				this.Tipo = TS.FLOAT
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) + obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+				return obtenerVal(obtenerTipo(izq), izq).(float64) + obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.BOOLEAN) {
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.BOOLEAN) {
 				this.Tipo = TS.FLOAT
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) + boolToFloat(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(bool))
+				return obtenerVal(obtenerTipo(izq), izq).(float64) + boolToFloat(obtenerVal(obtenerTipo(der), der).(bool))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.CADENA) {
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.CADENA) {
 				this.Tipo = TS.CADENA
-				return fmt.Sprintf("%v", obtenerVal(this.Op_izq.GetTipo(), izq).(float64)) + obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(string)
+				return fmt.Sprintf("%v", obtenerVal(obtenerTipo(izq), izq).(float64)) + obtenerVal(obtenerTipo(der), der).(string)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.BOOLEAN) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
+			if (obtenerTipo(izq) == TS.BOOLEAN) && (obtenerTipo(der) == TS.ENTERO) {
 				this.Tipo = TS.ENTERO
-				return boolToInt(obtenerVal(this.Op_izq.GetTipo(), izq).(bool)) + obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int)
+				return boolToInt(obtenerVal(obtenerTipo(izq), izq).(bool)) + obtenerVal(obtenerTipo(der), der).(int)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.BOOLEAN) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
+			if (obtenerTipo(izq) == TS.BOOLEAN) && (obtenerTipo(der) == TS.FLOAT) {
 				this.Tipo = TS.FLOAT
-				return boolToFloat(obtenerVal(this.Op_izq.GetTipo(), izq).(bool)) + obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+				return boolToFloat(obtenerVal(obtenerTipo(izq), izq).(bool)) + obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.BOOLEAN) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.BOOLEAN) {
+			if (obtenerTipo(izq) == TS.BOOLEAN) && (obtenerTipo(der) == TS.BOOLEAN) {
 				this.Tipo = TS.ENTERO
-				return boolToInt(obtenerVal(this.Op_izq.GetTipo(), izq).(bool)) + boolToInt(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(bool))
+				return boolToInt(obtenerVal(obtenerTipo(izq), izq).(bool)) + boolToInt(obtenerVal(obtenerTipo(der), der).(bool))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.CADENA) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
+			if (obtenerTipo(izq) == TS.CADENA) && (obtenerTipo(der) == TS.ENTERO) {
 				this.Tipo = TS.ENTERO
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(string) + fmt.Sprintf("%v", obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int))
+				return obtenerVal(obtenerTipo(izq), izq).(string) + fmt.Sprintf("%v", obtenerVal(obtenerTipo(der), der).(int))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.CADENA) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
+			if (obtenerTipo(izq) == TS.CADENA) && (obtenerTipo(der) == TS.FLOAT) {
 				this.Tipo = TS.CADENA
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(string) + fmt.Sprintf("%v", obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64))
+				return obtenerVal(obtenerTipo(izq), izq).(string) + fmt.Sprintf("%v", obtenerVal(obtenerTipo(der), der).(float64))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.CADENA) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.BOOLEAN) {
+			if (obtenerTipo(izq) == TS.CADENA) && (obtenerTipo(der) == TS.BOOLEAN) {
 				this.Tipo = TS.CADENA
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(string) + fmt.Sprintf("%v", obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(bool))
+				return obtenerVal(obtenerTipo(izq), izq).(string) + fmt.Sprintf("%v", obtenerVal(obtenerTipo(der), der).(bool))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.CADENA) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.CADENA) {
+			if (obtenerTipo(izq) == TS.CADENA) && (obtenerTipo(der) == TS.CADENA) {
 				this.Tipo = TS.CADENA
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(string) + obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(string)
+				return obtenerVal(obtenerTipo(izq), izq).(string) + obtenerVal(obtenerTipo(der), der).(string)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.CADENA) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.CARACTER) {
+			if (obtenerTipo(izq) == TS.CADENA) && (obtenerTipo(der) == TS.CARACTER) {
 				this.Tipo = TS.CADENA
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(string) + obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(string)
+				return obtenerVal(obtenerTipo(izq), izq).(string) + obtenerVal(obtenerTipo(der), der).(string)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.CARACTER) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.CARACTER) {
+			if (obtenerTipo(izq) == TS.CARACTER) && (obtenerTipo(der) == TS.CARACTER) {
 				this.Tipo = TS.CADENA
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(string) + obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(string)
+				return obtenerVal(obtenerTipo(izq), izq).(string) + obtenerVal(obtenerTipo(der), der).(string)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.CARACTER) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.CADENA) {
+			if (obtenerTipo(izq) == TS.CARACTER) && (obtenerTipo(der) == TS.CADENA) {
 				this.Tipo = TS.CADENA
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(string) + obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(string)
+				return obtenerVal(obtenerTipo(izq), izq).(string) + obtenerVal(obtenerTipo(der), der).(string)
 			}
 
 			return TS.Excepcion{"Semantico", "Tipo Erroneo Para Suma -", this.Fila, this.Columna}
 		}
 
 		if this.Operador == TS.MENOS {
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.ENTERO) {
 				this.Tipo = TS.ENTERO
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(int) - obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int)
+				return obtenerVal(obtenerTipo(izq), izq).(int) - obtenerVal(obtenerTipo(der), der).(int)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.FLOAT) {
 				this.Tipo = TS.FLOAT
-				return float64(obtenerVal(this.Op_izq.GetTipo(), izq).(int)) - obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+				return float64(obtenerVal(obtenerTipo(izq), izq).(int)) - obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.BOOLEAN) {
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.BOOLEAN) {
 				this.Tipo = TS.ENTERO
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(int) - boolToInt(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(bool))
+				return obtenerVal(obtenerTipo(izq), izq).(int) - boolToInt(obtenerVal(obtenerTipo(der), der).(bool))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.ENTERO) {
 				this.Tipo = TS.FLOAT
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) - float64(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int))
+				return obtenerVal(obtenerTipo(izq), izq).(float64) - float64(obtenerVal(obtenerTipo(der), der).(int))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.FLOAT) {
 				this.Tipo = TS.FLOAT
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) - obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+				return obtenerVal(obtenerTipo(izq), izq).(float64) - obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.BOOLEAN) {
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.BOOLEAN) {
 				this.Tipo = TS.FLOAT
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) - boolToFloat(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(bool))
+				return obtenerVal(obtenerTipo(izq), izq).(float64) - boolToFloat(obtenerVal(obtenerTipo(der), der).(bool))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.BOOLEAN) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
+			if (obtenerTipo(izq) == TS.BOOLEAN) && (obtenerTipo(der) == TS.ENTERO) {
 				this.Tipo = TS.ENTERO
-				return boolToInt(obtenerVal(this.Op_izq.GetTipo(), izq).(bool)) - obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int)
+				return boolToInt(obtenerVal(obtenerTipo(izq), izq).(bool)) - obtenerVal(obtenerTipo(der), der).(int)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.BOOLEAN) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
+			if (obtenerTipo(izq) == TS.BOOLEAN) && (obtenerTipo(der) == TS.FLOAT) {
 				this.Tipo = TS.FLOAT
-				return boolToFloat(obtenerVal(this.Op_izq.GetTipo(), izq).(bool)) - obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+				return boolToFloat(obtenerVal(obtenerTipo(izq), izq).(bool)) - obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.BOOLEAN) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.BOOLEAN) {
+			if (obtenerTipo(izq) == TS.BOOLEAN) && (obtenerTipo(der) == TS.BOOLEAN) {
 				this.Tipo = TS.ENTERO
-				return boolToInt(obtenerVal(this.Op_izq.GetTipo(), izq).(bool)) - boolToInt(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(bool))
+				return boolToInt(obtenerVal(obtenerTipo(izq), izq).(bool)) - boolToInt(obtenerVal(obtenerTipo(der), der).(bool))
 			}
 
 			return TS.Excepcion{"Semantico", "Tipo Erroneo Para Resta -", this.Fila, this.Columna}
 		}
 
 		if this.Operador == TS.POR {
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.ENTERO) {
 				this.Tipo = TS.ENTERO
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(int) * obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int)
+				return obtenerVal(obtenerTipo(izq), izq).(int) * obtenerVal(obtenerTipo(der), der).(int)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.FLOAT) {
 				this.Tipo = TS.FLOAT
-				return float64(obtenerVal(this.Op_izq.GetTipo(), izq).(int)) * obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+				return float64(obtenerVal(obtenerTipo(izq), izq).(int)) * obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.ENTERO) {
 				this.Tipo = TS.FLOAT
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) * float64(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int))
+				return obtenerVal(obtenerTipo(izq), izq).(float64) * float64(obtenerVal(obtenerTipo(der), der).(int))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.FLOAT) {
 				this.Tipo = TS.FLOAT
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) * obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+				return obtenerVal(obtenerTipo(izq), izq).(float64) * obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
 			return TS.Excepcion{"Semantico", "Tipo Erroneo Para Multiplicacion -", this.Fila, this.Columna}
@@ -202,48 +203,48 @@ func (this Aritmetica) Interpretar(tabla *TS.TablaSimbolos, Funciones *[]interfa
 		}
 
 		if this.Operador == TS.DIV {
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.ENTERO) {
 				this.Tipo = TS.FLOAT
-				return float64(obtenerVal(this.Op_izq.GetTipo(), izq).(int)) / float64(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int))
+				return float64(obtenerVal(obtenerTipo(izq), izq).(int)) / float64(obtenerVal(obtenerTipo(der), der).(int))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.FLOAT) {
 				this.Tipo = TS.FLOAT
-				return float64(obtenerVal(this.Op_izq.GetTipo(), izq).(int)) / obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+				return float64(obtenerVal(obtenerTipo(izq), izq).(int)) / obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.ENTERO) {
 				this.Tipo = TS.FLOAT
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) / float64(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int))
+				return obtenerVal(obtenerTipo(izq), izq).(float64) / float64(obtenerVal(obtenerTipo(der), der).(int))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.FLOAT) {
 				this.Tipo = TS.FLOAT
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(float64) / obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64)
+				return obtenerVal(obtenerTipo(izq), izq).(float64) / obtenerVal(obtenerTipo(der), der).(float64)
 			}
 
 			return TS.Excepcion{"Semantico", "Tipo Erroneo Para Division -", this.Fila, this.Columna}
 		}
 
 		if this.Operador == TS.MOD {
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.ENTERO) {
 				this.Tipo = TS.FLOAT
-				return math.Mod(float64(obtenerVal(this.Op_izq.GetTipo(), izq).(int)), float64(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int)))
+				return math.Mod(float64(obtenerVal(obtenerTipo(izq), izq).(int)), float64(obtenerVal(obtenerTipo(der), der).(int)))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.ENTERO) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
+			if (obtenerTipo(izq) == TS.ENTERO) && (obtenerTipo(der) == TS.FLOAT) {
 				this.Tipo = TS.FLOAT
-				return math.Mod(float64(obtenerVal(this.Op_izq.GetTipo(), izq).(int)), obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64))
+				return math.Mod(float64(obtenerVal(obtenerTipo(izq), izq).(int)), obtenerVal(obtenerTipo(der), der).(float64))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.ENTERO) {
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.ENTERO) {
 				this.Tipo = TS.FLOAT
-				return math.Mod(obtenerVal(this.Op_izq.GetTipo(), izq).(float64), float64(obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(int)))
+				return math.Mod(obtenerVal(obtenerTipo(izq), izq).(float64), float64(obtenerVal(obtenerTipo(der), der).(int)))
 			}
 
-			if (this.Op_izq.GetTipo() == TS.FLOAT) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.FLOAT) {
+			if (obtenerTipo(izq) == TS.FLOAT) && (obtenerTipo(der) == TS.FLOAT) {
 				this.Tipo = TS.FLOAT
-				return math.Mod(obtenerVal(this.Op_izq.GetTipo(), izq).(float64), obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(float64))
+				return math.Mod(obtenerVal(obtenerTipo(izq), izq).(float64), obtenerVal(obtenerTipo(der), der).(float64))
 			}
 
 			return TS.Excepcion{"Semantico", "Tipo Erroneo Para Modulo -", this.Fila, this.Columna}
@@ -254,14 +255,14 @@ func (this Aritmetica) Interpretar(tabla *TS.TablaSimbolos, Funciones *[]interfa
 	}
 
 	if this.Operador == TS.MENOS {
-		if this.Op_izq.GetTipo() == TS.ENTERO {
+		if obtenerTipo(izq) == TS.ENTERO {
 			this.Tipo = TS.ENTERO
-			return -obtenerVal(this.Op_izq.GetTipo(), izq).(int)
+			return -obtenerVal(obtenerTipo(izq), izq).(int)
 		}
 
-		if this.Op_izq.GetTipo() == TS.FLOAT {
+		if obtenerTipo(izq) == TS.FLOAT {
 			this.Tipo = TS.FLOAT
-			return -obtenerVal(this.Op_izq.GetTipo(), izq).(float64)
+			return -obtenerVal(obtenerTipo(izq), izq).(float64)
 		}
 
 		return TS.Excepcion{"Semantico", "Tipo Erroneo Para Negacion Unaria", this.Fila, this.Columna}
@@ -285,6 +286,29 @@ func obtenerVal(tipo TS.TIPO, val interface{}) interface{} {
 		return val.(bool)
 	}
 	return fmt.Sprintf("%v", val)
+}
+
+func obtenerTipo(valor interface{}) TS.TIPO {
+	if reflect.TypeOf(valor).Name() == "int" {
+		return TS.ENTERO
+	}
+
+	if reflect.TypeOf(valor).Name() == "float64" {
+		return TS.FLOAT
+	}
+
+	if reflect.TypeOf(valor).Name() == "string" {
+		return TS.CADENA
+	}
+
+	if reflect.TypeOf(valor).Name() == "bool" {
+		return TS.BOOLEAN
+	}
+	return TS.INSTRUCCION
+}
+
+func (this Aritmetica) SetTipo(tipo TS.TIPO) {
+	this.Tipo = tipo
 }
 
 func boolToInt(valor bool) int {

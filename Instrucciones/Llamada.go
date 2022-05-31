@@ -13,7 +13,7 @@ type Llamada struct {
 	Parametros    []Abstract.Instruccion
 	Fila          int
 	Columna       int
-	tipo          TS.TIPO
+	Tipo          TS.TIPO
 }
 
 func (this Llamada) Interpretar(table *TS.TablaSimbolos, Funciones *[]interface{}) interface{} {
@@ -56,7 +56,11 @@ func (this Llamada) Interpretar(table *TS.TablaSimbolos, Funciones *[]interface{
 }
 
 func (this Llamada) GetTipo() TS.TIPO {
-	return this.tipo
+	return this.Tipo
+}
+
+func (this Llamada) SetTipo(tipo TS.TIPO) {
+	this.Tipo = tipo
 }
 
 func NewLlamada(identificador string, parametros []Abstract.Instruccion, fila int, columna int) Llamada {

@@ -1,6 +1,7 @@
 package Instrucciones
 
 import (
+	"fmt"
 	"reflect"
 
 	"github.com/emivnajera/Abstract"
@@ -35,6 +36,10 @@ func (this Declaracion) Interpretar(table *TS.TablaSimbolos, Funciones *[]interf
 
 func (this Declaracion) GetTipo() TS.TIPO {
 	return TS.INSTRUCCION
+}
+
+func (this Declaracion) SetTipo(tipo TS.TIPO) {
+	fmt.Println("No se debe usar")
 }
 
 func NewDeclaracion(identificador string, expresion Abstract.Instruccion, fila int, columna int) Declaracion {

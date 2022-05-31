@@ -13,7 +13,7 @@ type Asignacion struct {
 	Expresion     Abstract.Instruccion
 	Fila          int
 	Columna       int
-	tipo          TS.TIPO
+	Tipo          TS.TIPO
 }
 
 func (this Asignacion) Interpretar(table *TS.TablaSimbolos, Funciones *[]interface{}) interface{} {
@@ -21,7 +21,7 @@ func (this Asignacion) Interpretar(table *TS.TablaSimbolos, Funciones *[]interfa
 	if reflect.TypeOf(value).Name() == "Excepcion" {
 		return value
 	}
-	this.tipo = this.Expresion.GetTipo()
+	this.Tipo = this.Expresion.GetTipo()
 
 	result := table.ActualizarTabla(this.Identificador, value, this.Fila, this.Columna)
 
@@ -34,7 +34,11 @@ func (this Asignacion) Interpretar(table *TS.TablaSimbolos, Funciones *[]interfa
 }
 
 func (this Asignacion) GetTipo() TS.TIPO {
-	return this.tipo
+	return this.Tipo
+}
+
+func (this Asignacion) SetTipo(tipo TS.TIPO) {
+	this.Tipo = tipo
 }
 
 func NewAsignacion(identificador string, expresion Abstract.Instruccion, fila int, columna int) Asignacion {

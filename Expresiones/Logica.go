@@ -29,23 +29,23 @@ func (this Logica) Interpretar(tabla *TS.TablaSimbolos, Funciones *[]interface{}
 		}
 		//AND
 		if this.Operador == TS.AND {
-			if (this.Op_izq.GetTipo() == TS.BOOLEAN) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.BOOLEAN) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(bool) && obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(bool)
+			if (obtenerTipo(izq) == TS.BOOLEAN) && (obtenerTipo(der) == TS.BOOLEAN) {
+				return obtenerVal(obtenerTipo(izq), izq).(bool) && obtenerVal(obtenerTipo(der), der).(bool)
 			}
 			return TS.Excepcion{"Semantico", "Tipo Erroneo para Operacion And", this.Fila, this.Columna}
 		}
 		//OR
 		if this.Operador == TS.OR {
-			if (this.Op_izq.GetTipo() == TS.BOOLEAN) && (this.Op_der.(Abstract.Instruccion).GetTipo() == TS.BOOLEAN) {
-				return obtenerVal(this.Op_izq.GetTipo(), izq).(bool) || obtenerVal(this.Op_der.(Abstract.Instruccion).GetTipo(), der).(bool)
+			if (obtenerTipo(izq) == TS.BOOLEAN) && (obtenerTipo(der) == TS.BOOLEAN) {
+				return obtenerVal(obtenerTipo(izq), izq).(bool) || obtenerVal(obtenerTipo(der), der).(bool)
 			}
 			return TS.Excepcion{"Semantico", "Tipo Erroneo para Operacion Or", this.Fila, this.Columna}
 		}
 	}
 	//NOT
 	if this.Operador == TS.NOT {
-		if this.Op_izq.GetTipo() == TS.BOOLEAN {
-			return !obtenerVal(this.Op_izq.GetTipo(), izq).(bool)
+		if obtenerTipo(izq) == TS.BOOLEAN {
+			return !obtenerVal(obtenerTipo(izq), izq).(bool)
 		}
 		return TS.Excepcion{"Semantico", "Tipo Erroneo para Operacion Not", this.Fila, this.Columna}
 	}
@@ -55,6 +55,10 @@ func (this Logica) Interpretar(tabla *TS.TablaSimbolos, Funciones *[]interface{}
 
 func (this Logica) GetTipo() TS.TIPO {
 	return this.Tipo
+}
+
+func (this Logica) SetTipo(tipo TS.TIPO) {
+	this.Tipo = tipo
 }
 
 func NewLogica(operador TS.OperadorAritmetico, op_izq Abstract.Instruccion, op_der interface{}, fila int, columna int) Logica {

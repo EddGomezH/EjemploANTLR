@@ -46,6 +46,10 @@ func (this Primitivos) GetTipo() TS.TIPO {
 	return this.Tipo
 }
 
+func (this Primitivos) SetTipo(tipo TS.TIPO) {
+	this.Tipo = tipo
+}
+
 func NewPrimitivo(valor string, tipo TS.TIPO, fila int, columna int) Primitivos {
 	return Primitivos{Valor: valor, Tipo: tipo, Fila: fila, Columna: columna}
 }
